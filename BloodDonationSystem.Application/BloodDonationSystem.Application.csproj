@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Implementations\**" />
+    <EmbeddedResource Remove="Implementations\**" />
+    <None Remove="Implementations\**" />
+    <Compile Remove="Models\InputModels\AddressInputModel.cs" />
+    <Compile Remove="Models\ViewModels\AddressViewModel.cs" />
+    <Compile Remove="Models\ViewModels\BloodStockViewModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BloodDonationSystem.Core\BloodDonationSystem.Core.csproj" />
+    <ProjectReference Include="..\BloodDonationSystem.Infrastructure\BloodDonationSystem.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
