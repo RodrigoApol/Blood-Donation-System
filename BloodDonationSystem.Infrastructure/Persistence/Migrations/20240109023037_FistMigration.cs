@@ -54,7 +54,8 @@ namespace BloodDonationSystem.Infrastructure.Persistence.Migrations
                 name: "Donations",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     IdDonor = table.Column<int>(type: "int", nullable: false),
                     DonationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     MlAmount = table.Column<double>(type: "float", nullable: false)
@@ -62,12 +63,6 @@ namespace BloodDonationSystem.Infrastructure.Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Donations", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Donations_Donors_Id",
-                        column: x => x.Id,
-                        principalTable: "Donors",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Donations_Donors_IdDonor",
                         column: x => x.IdDonor,

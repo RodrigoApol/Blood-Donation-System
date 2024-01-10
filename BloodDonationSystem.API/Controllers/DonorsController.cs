@@ -30,7 +30,7 @@ public class DonorsController : ControllerBase
         return Ok(donor);
     }
 
-    [HttpGet("{street}")]
+    [HttpGet("street/{street}")]
     public IActionResult GetByStreet(string street)
     {
         var donors = _donorService.GetDonorsByStreet(street);
@@ -38,7 +38,7 @@ public class DonorsController : ControllerBase
         return Ok(donors);
     }
     
-    [HttpGet("{city}")]
+    [HttpGet("city/{city}")]
     public IActionResult GetByCity(string city)
     {
         var donors = _donorService.GetDonorsByCity(city);
@@ -46,7 +46,7 @@ public class DonorsController : ControllerBase
         return Ok(donors);
     }
     
-    [HttpGet("{state}")]
+    [HttpGet("state/{state}")]
     public IActionResult GetByState(string state)
     {
         var donors = _donorService.GetDonorsByState(state);
@@ -54,7 +54,7 @@ public class DonorsController : ControllerBase
         return Ok(donors);
     }
     
-    [HttpGet("{postalCode}")]
+    [HttpGet("postal-code/{postalCode}")]
     public IActionResult GetByPostalCode(string postalCode)
     {
         var donors = _donorService.GetDonorsByPostalCode(postalCode);

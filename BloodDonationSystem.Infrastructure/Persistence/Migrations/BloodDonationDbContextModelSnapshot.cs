@@ -47,7 +47,10 @@ namespace BloodDonationSystem.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("BloodDonationSystem.Core.Entities.Donation", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("DonationDate")
                         .HasColumnType("datetime2");
@@ -108,14 +111,8 @@ namespace BloodDonationSystem.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("BloodDonationSystem.Core.Entities.Donation", b =>
                 {
-                    b.HasOne("BloodDonationSystem.Core.Entities.Donor", null)
-                        .WithMany("Donations")
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("BloodDonationSystem.Core.Entities.Donor", "Donor")
-                        .WithMany()
+                        .WithMany("Donations")
                         .HasForeignKey("IdDonor")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();

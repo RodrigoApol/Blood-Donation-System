@@ -11,7 +11,7 @@ public static class MappingDonorViewModel
             .Select(d => new DonorViewModel(d.Name, d.Email, d.Gender, d.DonorStatus))
             .ToList();
     }
-
+    
     public static DonorDetailsViewModel ToViewModelWithId(this Donor donor) => new(
         donor.Name,
         donor.Email,
@@ -20,5 +20,6 @@ public static class MappingDonorViewModel
         donor.Weight,
         donor.BloodType,
         donor.RhFactor,
-        donor.Address);
+        donor.Address,
+        donor.Donations.MapToViewModel());
 }

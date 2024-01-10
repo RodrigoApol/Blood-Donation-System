@@ -23,7 +23,7 @@ public class Donor : BaseEntity
     {
         if (weight < 50)
         {
-            throw new ArgumentException("O Peso minimo do doador deve ser de 50KG");
+            throw new ArgumentException("The minimum weight must be 50Kg");
         }
 
         Name = name;

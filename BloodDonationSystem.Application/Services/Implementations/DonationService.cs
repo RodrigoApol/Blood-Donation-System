@@ -25,13 +25,13 @@ public class DonationService : IDonationService
     public int CreateDonation(DonationInputModel donationInputModel)
     {
         var donor = _dbContext.Donors.SingleOrDefault(d => d.Id == donationInputModel.IdDonor)
-                    ?? throw new ArgumentException("Donor Not Exists");
+                    ?? throw new ArgumentException("Donor not exists");
 
         var donorAgeIsValid = donor.CanDonate();
 
         if (donorAgeIsValid is false)
         {
-            throw new ArgumentException("Donor Age Not Valid");
+            throw new ArgumentException("Donor age not valid");
         }
 
         var bloodStock = _dbContext.BloodStocks
@@ -45,7 +45,7 @@ public class DonationService : IDonationService
 
         if (donation.MlAmount < 420 && donation.MlAmount > 470)
         {
-            throw new ArgumentException("Error in Quantity");
+            throw new ArgumentException("Error in quantity");
         }
 
         _dbContext.Donations.Add(donation);
@@ -58,7 +58,8 @@ public class DonationService : IDonationService
 
     public List<DonationViewModel> GetAll()
     {
-        var donation = _dbContext.Donations;
+        var donation = _dbContext.Donations
+            .Include(d => d.Donor);
 
         var donationViewModel = donation.ToViewModel();
 
@@ -70,6 +71,7 @@ public class DonationService : IDonationService
         var donations = _dbContext
             .Donations
             .Where(d => d.DonationDate >= DateTime.Now.AddDays(-30))
+            .Include(d => d.Donor)
             .ToList();
 
         var donationsViewModel = donations.ToViewModel();
@@ -93,7 +95,7 @@ public class DonationService : IDonationService
     {
         var donation = _dbContext.Donations.SingleOrDefault(d => d.Id == id)
                        ?? throw new ArgumentException("Donation not exists");
-
+        
         donation.UpdateDonation(
             donationInputModel.IdDonor,
             donationInputModel.MlAmount);

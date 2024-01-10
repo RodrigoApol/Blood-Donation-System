@@ -26,7 +26,7 @@ public class DonationsController : ControllerBase
         return Ok(donations);
     }
 
-    [HttpGet("{Days}")]
+    [HttpGet("last-30-days")]
     public IActionResult GetLast30Days()
     {
         var donations = _donationService.GetLast30Days();

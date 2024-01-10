@@ -4,6 +4,7 @@ using BloodDonationSystem.Application.Models.ViewModels;
 using BloodDonationSystem.Application.Services.Interfaces;
 using BloodDonationSystem.Core.Entities;
 using BloodDonationSystem.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace BloodDonationSystem.Application.Services.Implementations;
 
@@ -31,7 +32,7 @@ public class DonorService : IDonorService
 
         if (donorExist != null)
         {
-            throw new AggregateException("Bla");
+            throw new ArgumentException("E-mail already registered");
         }
         
         var donor = new Donor(
@@ -70,7 +71,9 @@ public class DonorService : IDonorService
 
     public DonorDetailsViewModel GetDetails(int id)
     {
-        var donor = _dbContext.Donors.SingleOrDefault(d => d.Id == id)
+        var donor = _dbContext.Donors
+                        .Include(d => d.Donations)
+                        .SingleOrDefault(d => d.Id == id)
                     ?? throw new ArgumentException("User not exists");
 
         var donorViewModel = donor.ToViewModelWithId();
